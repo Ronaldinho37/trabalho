@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body onclick="go()">
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap');
+         @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+         .title {
+            font-family: "Jaro", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-size: 64px;
+            font-style: normal;
+            }
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html{
+            height: 100%;
+
+        }
+        .btn{
+            width: 60%;
+        }
+
+        body{
+            background: linear-gradient(to top right, #C33764 , #1D2671);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .jogos{
+            color: white;
+        }
+    </style>
+
+    <header class="p-3 text-center shadow  ">
+        <h1 class="title" id="titulo">PLAYHUB</h1>
+    </header>
+    <div id="mensagem" style="    display: none;
+    justify-content: center;flex-direction: column;align-items: center;">
+        <p style="padding: 5px 10px;
+        background-color: black;
+        color: yellow;
+        border-radius: 20px;
+        text-align: center;
+        align-self: center;" id="p">{{aviso}}</p>
+        <a href="/blibioteca" style="    margin-top: -13px;
+        color: white;
+        text-decoration: none;
+        text-transform: uppercase;">Cancelar</a>
+    </div>
+    <div class="d-flex">
+
+        <div class="p-4 bg-dark  w-25 rounded m-5 ">
+            <div class="mb-4 text-center ">
+                <a href="{% url 'cadastrar' %}" class="btn btn-outline-warning  fs-2 mb-3">Cadastrar</a><br>
+                <a href="/blibioteca/deletar/0" class="btn btn-outline-warning  fs-2 mb-3">Deletar</a><br>
+                <a href="/blibioteca/atualizar/0" class="btn btn-outline-warning  fs-2 ">Atualizar</a>
+            </div>
+
+        </div>
+        
+        {% for i in jogos %}
+        <div class="p-2 bg-dark  w-25 rounded m-5" data-id={{i.id}} data-acao="{{acao}}" onclick="vai(this)">
+            <div class="jogos">
+                <h2>{{i.nome}}</h2>
+                <p>{{i.descricao}}</p>
+                <img src="../../media/{{i.imagem}}" alt="">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if acao == 'deletar' %}
+    <script>
+        function vai(x){
+            window.location.href = `/blibioteca/deletar/${x.dataset.id}` 
+        }
+
+    </script>
+    {% elif acao == 'atualizar' %}
+    <script>
+        function vai(x){
+            window.location.href = `/blibioteca/atualizar/${x.dataset.id}` 
+        }
+
+    </script>
+    {% else %}
+    <script>
+        function vai(x){
+            window.location.href = `/blibioteca/ver/${x.dataset.id}` 
+        }
+    </script>
+    {% endif %}
+    <script>
+        window.onload = () =>{
+            let div = document.getElementById('mensagem')
+            let p = document.getElementById('p')
+            if(p.innerText != ''){
+                div.style.display = 'flex'
+            } else {
+                div.style.display = 'none'
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

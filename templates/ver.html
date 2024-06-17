@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="p-2 bg-dark  w-25 rounded m-5" data-id={{i.id}} data-acao="{{acao}}" onclick="vai(this)">
+        <div class="jogos">
+            <h2>{{jogo.nome}}</h2>
+            <p>{{jogo.descricao}}</p>
+            <img src="../../media/{{jogo.imagem}}" alt="">
+            <a href="{{jogo.link}}">link</a>
+        </div>
+    </div>
+</body>
+</html>
